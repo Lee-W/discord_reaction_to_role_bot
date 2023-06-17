@@ -1,0 +1,33 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+# task management
+invoke = ">=1.4.1"
+# test
+pytest = ">=7.2.0"
+pytest-cov = ">=2.8.1"
+pytest-mock = ">=3.0.0"
+pytest-xdist = ">=1.31.0"
+hypothesis = ">=5.8.0"
+coverage = {extras = ["toml"], version = ">=5.0.4"}
+# style
+ruff = ">=0.0.262"
+black = ">=22.10.0"
+mypy = ">=0.910"
+# security
+bandit = ">=1.6.2"
+pip-audit = ">=2.4.5"
+# git
+commitizen = ">=3.0.0"
+pre-commit = ">=2.2.0"
+# documentation
+mkdocs = ">=1.1"
+mkdocs-material = ">=7.0.6"
+
+[packages]
+
+[requires]
+python_version = "3.10"

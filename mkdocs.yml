@@ -1,0 +1,9 @@
+site_name: Discord reaction to role bot
+nav:
+  - Home: README.md
+  - Contributing: contributing.md
+theme:
+  name: 'material'
+repo_url: discord_reaction_to_role_bot
+remote_branch: gh-pages
+remote_name: origin
