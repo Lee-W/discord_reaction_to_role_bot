@@ -4,6 +4,6 @@ nav:
   - Contributing: contributing.md
 theme:
   name: 'material'
-repo_url: discord_reaction_to_role_bot
+repo_url: https://github.com/Lee-W/discord_reaction_to_role_bot
 remote_branch: gh-pages
 remote_name: origin
