@@ -55,6 +55,7 @@ class ReactionToRoleClient(discord.Client):
                 await self._edit_role_on_emoji(
                     channel, self.remove_role_message_id, "remove_roles"
                 )
+
         except Exception as err:
             logging.error(err)
         finally:
@@ -82,6 +83,9 @@ class ReactionToRoleClient(discord.Client):
                     logging.error(err)
                 else:
                     await message.remove_reaction(reaction.emoji, user)
+
+        for emoji in self.emoji_to_role_id:
+            await message.add_reaction(emoji)
 
 
 def load_config(config_file_name: str = "config.json") -> Config:
