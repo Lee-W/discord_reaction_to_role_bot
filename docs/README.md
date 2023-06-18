@@ -2,7 +2,9 @@
 
 # Discord reaction to role bot
 
-Discord bot for editing members' roles based on their reactions to a given message
+Discord bot that can edit members' roles based on their reactions to a message
+
+The bot is designed to exit once all operations are completed, allowing us to run it like a terminal command rather than keeping a bot server running.
 
 ## Getting Started
 
@@ -11,7 +13,7 @@ Discord bot for editing members' roles based on their reactions to a given messa
 
 ### Configuration
 
-This bot takes configuration from either environment variable "CONFIG_JSON" of configuration file "config.json".
+This tool can retrieve configuration settings from either an environment variable called "CONFIG_JSON" or a configuration file named "config.json".
 
 * from the environment variable
 
@@ -19,15 +21,28 @@ This bot takes configuration from either environment variable "CONFIG_JSON" of c
 export CONFIG_JSON='
 {
     "discord_token": "<Your token>",
-    "server_name": "<Your server name>",
-    "channel_id": 123,
-    "add_role_message_id": 456,
-    "remove_role_message_id": 789,
-    "emoji_to_role_id": {
-        "💯": 321,
-        "👍": 654
-    }
+    "guilds": [
+        {
+            "guild_id": <Your guild ID>,
+            "channels": [
+                {
+                    "channel_id": <Your channel ID>,,
+                    "messages": [
+                        {
+                            "message_id": <Your message ID>,
+                            "operation": "add_roles",
+                            "emoji_to_role_id": {
+                                "💯": <Role ID>,
+                                "👍": <Role ID>
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
 }
+
 '
 ```
 
@@ -36,38 +51,50 @@ export CONFIG_JSON='
 ```json
 {
     "discord_token": "<Your token>",
-    "server_name": "<Your server name>",
-    "channel_id": 123,
-    "add_role_message_id": 456,
-    "remove_role_message_id": 789,
-    "emoji_to_role_id": {
-        "💯": 321,
-        "👍": 654
-    }
+    "guilds": [
+        {
+            "guild_id": <Your guild ID>,
+            "channels": [
+                {
+                    "channel_id": <Your channel ID>,,
+                    "messages": [
+                        {
+                            "message_id": <Your message ID>,
+                            "operation": "add_roles",
+                            "emoji_to_role_id": {
+                                "💯": <Role ID>,
+                                "👍": <Role ID>
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
 }
+
 ```
 
 #### Columns
-* discord_token: discord token for the bot
-    * type: string
-* server_name: discord server name. If not given, we'll use the first server found.
-    * type: string (optional)
-* channel_id: discord channel id
-    * type: integer
-* add_role_message_id: the id of the message that the members react to for retrieving new roles. if not given, then we'll not add roles to members
-    * type: integer (optional)
-* remove_role_message_id: the id of the message that the members react to for removing their existing roles. if not given, then we'll not remove roles from members
-    * type: integer (optional)
-* emoji_to_role_id
-    * type: dict[str, int]
-
-
-
+* `discord_token` (str): discord token for the bot
+* `guilds` (list[GuildMetadata]): metadata of the guilds that contain the message for members to react to
+    * `guild_id` (int): discord guild id
+    * `channel` (list[ChannelMetadata]): metadata of the channels that contain the message for members to react to
+        * `channel_id` (int): discord channel_id
+        * `messages`: (list[MessageMetadata]): metadata of the messages for members to react to
+            * `message_id` (int): discord message id
+            * `operation` (str): currently only supports `add_roles`, `remove_roles`
+            * `emoji_to_role_id` (dict[str, int]): the mapping from emoji to the id of the role to operate
 
 ### Usage
 
 ```sh
+# Step 1: Install required dependency
 pipenv install
+
+# Step 2: Set up configuration as the previous section describe
+
+# Step 3: Run the bot
 pipenv run python bot/bot.py
 ```
 
