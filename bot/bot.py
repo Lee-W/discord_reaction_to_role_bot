@@ -10,7 +10,7 @@ import discord
 
 class Config(TypedDict):
     discord_token: str
-    server_name: str | None
+    guild_id: int
     channel_id: int
     add_role_message_id: int
     remove_role_message_id: int
@@ -21,9 +21,9 @@ class ReactionToRoleClient(discord.Client):
     def __init__(
         self,
         *args,
+        guild_id: int,
         channel_id: int,
         emoji_to_role_id: dict[str, int],
-        target_guild_name: str | None = None,
         add_role_message_id: int | None = None,
         remove_role_message_id: int | None = None,
         **kwargs,
@@ -34,19 +34,12 @@ class ReactionToRoleClient(discord.Client):
         self.remove_role_message_id = remove_role_message_id
         self.channel_id = channel_id
         self.emoji_to_role_id = emoji_to_role_id
-        self.target_guild_name = target_guild_name
+        self.guild_id = guild_id
 
     async def on_ready(self):
         try:
             # Retrieve guild object
-            if self.target_guild_name:
-                self.target_guild = list(
-                    filter(
-                        lambda guild: guild.name == self.target_guild_name, self.guilds
-                    )
-                )[0]
-            else:
-                self.target_guild = self.guilds[0]
+            self.target_guild = self.get_guild(self.guild_id)
 
             # Retrieve channel object
             channel = self.get_channel(self.channel_id)
@@ -110,6 +103,6 @@ if __name__ == "__main__":
         add_role_message_id=config["add_role_message_id"],
         remove_role_message_id=config["remove_role_message_id"],
         emoji_to_role_id=config["emoji_to_role_id"],
-        target_guild_name=config["server_name"],
+        guild_id=config["guild_id"],
     )
     client.run(config["discord_token"])
