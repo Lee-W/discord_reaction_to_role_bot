@@ -428,29 +428,43 @@
 
 <p><a href="http://makeapullrequest.com"><img alt="PRs Welcome" src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square" /></a> <a href="https://conventionalcommits.org"><img alt="Conventional Commits" src="https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg?style=flat-square" /></a> <a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg" /></a> <a href="https://github.com/Lee-W/discord_reaction_to_role_bot/actions/workflows/python-check.yaml"><img alt="Github Actions" src="https://github.com/Lee-W/discord_reaction_to_role_bot/actions/workflows/python-check.yaml/badge.svg" /></a></p>
 <h1 id="discord-reaction-to-role-bot">Discord reaction to role bot</h1>
-<p>Discord bot for editing members' roles based on their reactions to a given message</p>
+<p>Discord bot that can edit members' roles based on their reactions to a message</p>
+<p>The bot is designed to exit once all operations are completed, allowing us to run it like a terminal command rather than keeping a bot server running.</p>
 <h2 id="getting-started">Getting Started</h2>
 <h3 id="prerequisites">Prerequisites</h3>
 <ul>
 <li><a href="https://www.python.org/downloads/">Python</a></li>
 </ul>
 <h3 id="configuration">Configuration</h3>
-<p>This bot takes configuration from either environment variable "CONFIG_JSON" of configuration file "config.json".</p>
+<p>This tool can retrieve configuration settings from either an environment variable called "CONFIG_JSON" or a configuration file named "config.json".</p>
 <ul>
 <li>from the environment variable</li>
 </ul>
 <pre><code class="language-sh">export CONFIG_JSON='
 {
     &quot;discord_token&quot;: &quot;&lt;Your token&gt;&quot;,
-    &quot;server_name&quot;: &quot;&lt;Your server name&gt;&quot;,
-    &quot;channel_id&quot;: 123,
-    &quot;add_role_message_id&quot;: 456,
-    &quot;remove_role_message_id&quot;: 789,
-    &quot;emoji_to_role_id&quot;: {
-        &quot;💯&quot;: 321,
-        &quot;👍&quot;: 654
-    }
+    &quot;guilds&quot;: [
+        {
+            &quot;guild_id&quot;: &lt;Your guild ID&gt;,
+            &quot;channels&quot;: [
+                {
+                    &quot;channel_id&quot;: &lt;Your channel ID&gt;,,
+                    &quot;messages&quot;: [
+                        {
+                            &quot;message_id&quot;: &lt;Your message ID&gt;,
+                            &quot;operation&quot;: &quot;add_roles&quot;,
+                            &quot;emoji_to_role_id&quot;: {
+                                &quot;💯&quot;: &lt;Role ID&gt;,
+                                &quot;👍&quot;: &lt;Role ID&gt;
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
 }
+
 '
 </code></pre>
 <ul>
@@ -458,45 +472,54 @@
 </ul>
 <pre><code class="language-json">{
     &quot;discord_token&quot;: &quot;&lt;Your token&gt;&quot;,
-    &quot;server_name&quot;: &quot;&lt;Your server name&gt;&quot;,
-    &quot;channel_id&quot;: 123,
-    &quot;add_role_message_id&quot;: 456,
-    &quot;remove_role_message_id&quot;: 789,
-    &quot;emoji_to_role_id&quot;: {
-        &quot;💯&quot;: 321,
-        &quot;👍&quot;: 654
-    }
+    &quot;guilds&quot;: [
+        {
+            &quot;guild_id&quot;: &lt;Your guild ID&gt;,
+            &quot;channels&quot;: [
+                {
+                    &quot;channel_id&quot;: &lt;Your channel ID&gt;,,
+                    &quot;messages&quot;: [
+                        {
+                            &quot;message_id&quot;: &lt;Your message ID&gt;,
+                            &quot;operation&quot;: &quot;add_roles&quot;,
+                            &quot;emoji_to_role_id&quot;: {
+                                &quot;💯&quot;: &lt;Role ID&gt;,
+                                &quot;👍&quot;: &lt;Role ID&gt;
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
 }
+
 </code></pre>
 <h4 id="columns">Columns</h4>
 <ul>
-<li>discord_token: discord token for the bot<ul>
-<li>type: string</li>
+<li><code>discord_token</code> (str): discord token for the bot</li>
+<li><code>guilds</code> (list[GuildMetadata]): metadata of the guilds that contain the message for members to react to<ul>
+<li><code>guild_id</code> (int): discord guild id</li>
+<li><code>channel</code> (list[ChannelMetadata]): metadata of the channels that contain the message for members to react to<ul>
+<li><code>channel_id</code> (int): discord channel_id</li>
+<li><code>messages</code>: (list[MessageMetadata]): metadata of the messages for members to react to<ul>
+<li><code>message_id</code> (int): discord message id</li>
+<li><code>operation</code> (str): currently only supports <code>add_roles</code>, <code>remove_roles</code></li>
+<li><code>emoji_to_role_id</code> (dict[str, int]): the mapping from emoji to the id of the role to operate</li>
 </ul>
 </li>
-<li>server_name: discord server name. If not given, we'll use the first server found.<ul>
-<li>type: string (optional)</li>
 </ul>
 </li>
-<li>channel_id: discord channel id<ul>
-<li>type: integer</li>
-</ul>
-</li>
-<li>add_role_message_id: the id of the message that the members react to for retrieving new roles. if not given, then we'll not add roles to members<ul>
-<li>type: integer (optional)</li>
-</ul>
-</li>
-<li>remove_role_message_id: the id of the message that the members react to for removing their existing roles. if not given, then we'll not remove roles from members<ul>
-<li>type: integer (optional)</li>
-</ul>
-</li>
-<li>emoji_to_role_id<ul>
-<li>type: dict[str, int]</li>
 </ul>
 </li>
 </ul>
 <h3 id="usage">Usage</h3>
-<pre><code class="language-sh">pipenv install
+<pre><code class="language-sh"># Step 1: Install required dependency
+pipenv install
+
+# Step 2: Set up configuration as the previous section describe
+
+# Step 3: Run the bot
 pipenv run python bot/bot.py
 </code></pre>
 <h2 id="contributing">Contributing</h2>
