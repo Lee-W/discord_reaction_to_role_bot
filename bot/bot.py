@@ -8,53 +8,54 @@ from typing import TypedDict
 import discord
 
 
+class Message(TypedDict):
+    message_id: int
+    operation: str
+    emoji_to_role_id: dict[str, int]
+
+
+class Channel(TypedDict):
+    channel_id: int
+    messages: list[Message]
+
+
+class Guild(TypedDict):
+    guild_id: int
+    channels: list[Channel]
+
+
 class Config(TypedDict):
     discord_token: str
-    guild_id: int
-    channel_id: int
-    add_role_message_id: int
-    remove_role_message_id: int
-    emoji_to_role_id: dict[str, int]
+    guilds: list[Guild]
 
 
 class ReactionToRoleClient(discord.Client):
     def __init__(
         self,
         *args,
-        guild_id: int,
-        channel_id: int,
-        emoji_to_role_id: dict[str, int],
-        add_role_message_id: int | None = None,
-        remove_role_message_id: int | None = None,
+        guilds: list[Guild],
         **kwargs,
     ):
         super().__init__(*args, **kwargs)
-
-        self.add_role_message_id = add_role_message_id
-        self.remove_role_message_id = remove_role_message_id
-        self.channel_id = channel_id
-        self.emoji_to_role_id = emoji_to_role_id
-        self.guild_id = guild_id
+        self.target_guilds = guilds
 
     async def on_ready(self):
         try:
-            # Retrieve guild object
-            self.target_guild = self.get_guild(self.guild_id)
+            for guild in self.target_guilds:
+                # Retrieve guild object
+                guild_obj = self.get_guild(guild["guild_id"])
+                for channel in guild["channels"]:
+                    # Retrieve channel object
+                    channel_obj = self.get_channel(channel["channel_id"])
 
-            # Retrieve channel object
-            channel = self.get_channel(self.channel_id)
-
-            # add role on emoji
-            if self.add_role_message_id:
-                await self._edit_role_on_emoji(
-                    channel, self.add_role_message_id, "add_roles"
-                )
-
-            # remove role on emoji
-            if self.remove_role_message_id:
-                await self._edit_role_on_emoji(
-                    channel, self.remove_role_message_id, "remove_roles"
-                )
+                    for message in channel["messages"]:
+                        await self._edit_role_on_emoji(
+                            guild_obj,
+                            channel_obj,
+                            message["message_id"],
+                            message["operation"],
+                            message["emoji_to_role_id"],
+                        )
 
         except Exception as err:
             logging.error(err)
@@ -63,14 +64,16 @@ class ReactionToRoleClient(discord.Client):
 
     async def _edit_role_on_emoji(
         self,
+        guild: discord.Guild,
         channel: discord.abc.GuildChannel,
         message_id: int,
         operation_method_name: str,
+        emoji_to_role_id: dict[str, int],
     ) -> None:
         message = await channel.fetch_message(message_id)
         for reaction in message.reactions:
-            role_id = self.emoji_to_role_id[reaction.emoji]
-            role = self.target_guild.get_role(role_id)
+            role_id = emoji_to_role_id[reaction.emoji]
+            role = guild.get_role(role_id)
             if not role:
                 # Make sure the role still exists and is valid.
                 return
@@ -84,7 +87,7 @@ class ReactionToRoleClient(discord.Client):
                 else:
                     await message.remove_reaction(reaction.emoji, user)
 
-        for emoji in self.emoji_to_role_id:
+        for emoji in emoji_to_role_id:
             await message.add_reaction(emoji)
 
 
@@ -101,12 +104,5 @@ if __name__ == "__main__":
 
     intents = discord.Intents.default()
     intents.members = True
-    client = ReactionToRoleClient(
-        intents=intents,
-        channel_id=config["channel_id"],
-        add_role_message_id=config["add_role_message_id"],
-        remove_role_message_id=config["remove_role_message_id"],
-        emoji_to_role_id=config["emoji_to_role_id"],
-        guild_id=config["guild_id"],
-    )
+    client = ReactionToRoleClient(intents=intents, guilds=config["guilds"])
     client.run(config["discord_token"])
