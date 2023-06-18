@@ -8,53 +8,61 @@ from typing import TypedDict
 import discord
 
 
-class Message(TypedDict):
+class MessageMetadata(TypedDict):
+    """The metadata of the discord message that memberes should reaction on"""
+
     message_id: int
     operation: str
     emoji_to_role_id: dict[str, int]
 
 
-class Channel(TypedDict):
+class ChannelMetadata(TypedDict):
+    """The metatdata of discord channel that contains the message to react"""
+
     channel_id: int
-    messages: list[Message]
+    messages: list[MessageMetadata]
 
 
-class Guild(TypedDict):
+class GuildMetadata(TypedDict):
+    """The metatdata of discord guild that contains the channel to react"""
+
     guild_id: int
-    channels: list[Channel]
+    channels: list[ChannelMetadata]
 
 
 class Config(TypedDict):
+    """The configuration dictionarty to run the ReactionToRoleClient"""
+
     discord_token: str
-    guilds: list[Guild]
+    guilds: list[GuildMetadata]
 
 
 class ReactionToRoleClient(discord.Client):
     def __init__(
         self,
         *args,
-        guilds: list[Guild],
+        guilds: list[GuildMetadata],
         **kwargs,
     ):
         super().__init__(*args, **kwargs)
-        self.target_guilds = guilds
+        self.reaction_guilds = guilds
 
     async def on_ready(self):
         try:
-            for guild in self.target_guilds:
+            for guild_metadata in self.reaction_guilds:
                 # Retrieve guild object
-                guild_obj = self.get_guild(guild["guild_id"])
-                for channel in guild["channels"]:
+                guild = self.get_guild(guild_metadata["guild_id"])
+                for channel_metadata in guild_metadata["channels"]:
                     # Retrieve channel object
-                    channel_obj = self.get_channel(channel["channel_id"])
+                    channel = self.get_channel(channel_metadata["channel_id"])
 
-                    for message in channel["messages"]:
+                    for message_metadata in channel_metadata["messages"]:
                         await self._edit_role_on_emoji(
-                            guild_obj,
-                            channel_obj,
-                            message["message_id"],
-                            message["operation"],
-                            message["emoji_to_role_id"],
+                            guild,
+                            channel,
+                            message_metadata["message_id"],
+                            message_metadata["operation"],
+                            message_metadata["emoji_to_role_id"],
                         )
 
         except Exception as err:
@@ -79,6 +87,9 @@ class ReactionToRoleClient(discord.Client):
                 return
 
             async for user in reaction.users():
+                if user == self.user:
+                    continue
+
                 try:
                     operation = getattr(user, operation_method_name)
                     await operation(role)
