@@ -1,0 +1,33 @@
+name: "run reaction to role bot"
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  reaction-to-role:
+    runs-on: ubuntu-latest
+    env:
+       CONFIG_JSON: ${{ secrets.CONFIG_JSON }}
+    steps:
+      - name: Check out
+        if: ${{ env.CONFIG_JSON }}
+        uses: actions/checkout@main
+
+      - name: Set up Python 3.10
+        if: ${{ env.CONFIG_JSON }}
+        uses: actions/setup-python@v4.6.1
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
+        if: ${{ env.CONFIG_JSON }}
+        run: |
+          python -m pip install -U pip pipenv invoke
+          inv env.init-dev
+
+      - name: Run reaction to role bot
+        if: ${{ env.CONFIG_JSON }}
+        run: |
+          pipenv run python bot/bot.py
