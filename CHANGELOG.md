@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.1 (2023-06-19)
+
+### Fix
+
+- **bot**: catch undefined emoji
+
 ## 0.2.0 (2023-06-18)
 
 ### Feat
