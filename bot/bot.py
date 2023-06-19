@@ -84,7 +84,12 @@ class ReactionToRoleClient(discord.Client):
 
         message = await channel.fetch_message(message_id)
         for reaction in message.reactions:
-            role_id = emoji_to_role_id[str(reaction.emoji)]
+            try:
+                role_id = emoji_to_role_id[str(reaction.emoji)]
+            except KeyError:
+                # irreverent emoji
+                continue
+
             role = guild.get_role(role_id)
             if not role:
                 # Make sure the role still exists and is valid.
