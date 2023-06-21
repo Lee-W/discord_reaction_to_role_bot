@@ -653,11 +653,11 @@
         },
         "commitizen": {
             "hashes": [
-                "sha256:55a5e6dfb7b5815a0708532d63c22ef3433ac0d66a48d8f40a7f9ba7e56c8a2c",
-                "sha256:b1d81366c9e6a3f426dbf72a34de043d826045a382aa8cd9bc7d9289e84e66a8"
+                "sha256:5c58052099a6512da66a893f09e98e1f0d94ed02720a4e8d5747d4d409d59cfb",
+                "sha256:ab17db8c4f7258d9cdcc620046aa63d2139756ef78b2174cfa9f9c5e383eaf27"
             ],
             "index": "pypi",
-            "version": "==3.3.0"
+            "version": "==3.4.0"
         },
         "coverage": {
             "extras": [
@@ -1155,11 +1155,11 @@
         },
         "platformdirs": {
             "hashes": [
-                "sha256:57e28820ca8094678b807ff529196506d7a21e17156cb1cddb3e74cebce54640",
-                "sha256:ffa199e3fbab8365778c4a10e1fbf1b9cd50707de826eb304b50e57ec0cc8d38"
+                "sha256:87fbf6473e87c078d536980ba970a472422e94f17b752cfad17024c18876d481",
+                "sha256:cfd065ba43133ff103ab3bd10aecb095c2a0035fcd1f07217c9376900d94ba07"
             ],
             "markers": "python_version >= '3.7'",
-            "version": "==3.6.0"
+            "version": "==3.7.0"
         },
         "pluggy": {
             "hashes": [
@@ -1446,11 +1446,11 @@
         },
         "setuptools": {
             "hashes": [
-                "sha256:5df61bf30bb10c6f756eb19e7c9f3b473051f48db77fddbe06ff2ca307df9a6f",
-                "sha256:62642358adc77ffa87233bc4d2354c4b2682d214048f500964dbe760ccedf102"
+                "sha256:11e52c67415a381d10d6b462ced9cfb97066179f0e871399e006c4ab101fc85f",
+                "sha256:baf1fdb41c6da4cd2eae722e135500da913332ab3f2f5c7d33af9b492acb5235"
             ],
             "markers": "python_version >= '3.7'",
-            "version": "==67.8.0"
+            "version": "==68.0.0"
         },
         "six": {
             "hashes": [
