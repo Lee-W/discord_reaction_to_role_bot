@@ -105,4 +105,4 @@ See [Contributing](contributing.md)
 Wei Lee <weilee.rx@gmail.com>
 
 
-Created from [Lee-W/cookiecutter-python-template](https://github.com/Lee-W/cookiecutter-python-template/tree/1.6.0) version 1.6.0
+Created from [Lee-W/cookiecutter-python-template](https://github.com/Lee-W/cookiecutter-python-template/tree/1.7.0) version 1.7.0
