@@ -799,11 +799,12 @@
         },
         "hypothesis": {
             "hashes": [
-                "sha256:335a15c07bb1b4a94950e69ccb2089b0b7b5424ba2f537e01dc6185932233ba2",
-                "sha256:65b8309f70ef373cc405a1663176804038144a1c7e9296f7077c50f3b4e3ccd5"
+                "sha256:5cfda253e34726c98ab04b9595fca15677ee9f4f6055146aea25a6278d71f6f1",
+                "sha256:781ce6fd35e11ca77ad132a20cebe66fd215f56678f8efd6b87013b14500151b"
             ],
             "index": "pypi",
-            "version": "==6.84.1"
+            "markers": "python_version >= '3.8'",
+            "version": "==6.88.3"
         },
         "identify": {
             "hashes": [
