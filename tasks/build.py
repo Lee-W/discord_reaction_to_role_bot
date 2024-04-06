@@ -1,5 +1,6 @@
-from invoke import Collection, task
+from invoke.collection import Collection
 from invoke.context import Context
+from invoke.tasks import task
 
 from tasks.common import VENV_PREFIX
 

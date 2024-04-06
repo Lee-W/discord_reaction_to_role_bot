@@ -21,14 +21,6 @@ jobs:
           python -m pip install -U pip pipenv invoke
           inv env.init-dev --no-pre-commit
 
-      - name: Style check
+      - name: Run pre-commit hooks
         run: |
-          inv style
-
-      - name: Check vulnerability
-        run: |
-          inv secure
-
-      - name: Run tests
-        run: |
-          inv test -a
+          inv run-pre-commit-hooks

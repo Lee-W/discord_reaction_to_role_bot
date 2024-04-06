@@ -52,7 +52,7 @@ jobs:
       - name: Run update if available
         if: steps.check.outputs.has_changes == '1'
         run: |
-          git config --global user.email "weilee.rx@gmail.com"}
+          git config --global user.email "weilee.rx@gmail.com"
           git config --global user.name "Wei Lee"
 
           cruft update --skip-apply-ask --refresh-private-variables
