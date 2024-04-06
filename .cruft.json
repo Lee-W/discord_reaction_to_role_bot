@@ -1,26 +1,27 @@
 {
-  "template": "https://github.com/Lee-W/cookiecutter-python-template",
-  "commit": "747d1b3072bf856fd5eff0731ddb27210e2c49e3",
-  "checkout": null,
-  "context": {
-    "cookiecutter": {
-      "project_name": "Discord reaction to role bot",
-      "project_slug": "bot",
-      "project_description": "Discord bot for editing members' roles based on their reactions to given message",
-      "github_username": "Lee-W",
-      "github_url": "discord_reaction_to_role_bot",
-      "author_name": "Wei Lee",
-      "author_email": "weilee.rx@gmail.com",
-      "python_version": "3.10",
-      "dependency_management_tool": "pipenv",
-      "default_branch": "main",
-      "use_strict_mypy_config": "n",
-      "build_pypi_package": "n",
-      "build_docker_image": "n",
-      "open_source_license": "MIT license",
-      "_template_version": "1.8.1",
-      "_template": "https://github.com/Lee-W/cookiecutter-python-template"
-    }
-  },
-  "directory": null
+    "template": "https://github.com/Lee-W/cookiecutter-python-template",
+    "commit": "c420de560643aa05b7553859a7c658cdfc591380",
+    "checkout": null,
+    "context": {
+        "cookiecutter": {
+            "project_name": "Discord reaction to role bot",
+            "project_slug": "bot",
+            "project_description": "Discord bot for editing members' roles based on their reactions to given message",
+            "github_username": "Lee-W",
+            "github_url": "discord_reaction_to_role_bot",
+            "author_name": "Wei Lee",
+            "author_email": "weilee.rx@gmail.com",
+            "python_version": "3.10",
+            "dependency_management_tool": "pipenv",
+            "default_branch": "main",
+            "use_strict_mypy_config": "n",
+            "build_pypi_package": "n",
+            "build_docker_image": "n",
+            "open_source_license": "MIT license",
+            "auto_detect_update_from_cruft_template": "y",
+            "_template_version": "1.9.0",
+            "_template": "https://github.com/Lee-W/cookiecutter-python-template"
+        }
+    },
+    "directory": null
 }
