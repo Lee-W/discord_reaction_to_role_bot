@@ -9,7 +9,7 @@ jobs:
   reaction-to-role:
     runs-on: ubuntu-latest
     env:
-       CONFIG_JSON: ${{ secrets.CONFIG_JSON }}
+      CONFIG_JSON: ${{ secrets.CONFIG_JSON }}
     steps:
       - name: Check out
         if: ${{ env.CONFIG_JSON }}
