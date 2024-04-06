@@ -17,21 +17,21 @@ class MessageMetadata(TypedDict):
 
 
 class ChannelMetadata(TypedDict):
-    """The metatdata of discord channel that contains the message to react"""
+    """The metadata of discord channel that contains the message to react"""
 
     channel_id: int
     messages: list[MessageMetadata]
 
 
 class GuildMetadata(TypedDict):
-    """The metatdata of discord guild that contains the channel to react"""
+    """The metadata of discord guild that contains the channel to react"""
 
     guild_id: int
     channels: list[ChannelMetadata]
 
 
 class Config(TypedDict):
-    """The configuration dictionarty to run the ReactionToRoleClient"""
+    """The configuration dictionary to run the ReactionToRoleClient"""
 
     discord_token: str
     guilds: list[GuildMetadata]
