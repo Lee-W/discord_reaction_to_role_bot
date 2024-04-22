@@ -597,15 +597,12 @@ python -m pipx ensurepath
 <pre><code class="language-sh">inv test.cov
 </code></pre>
 <h3 id="step-10-reformat-source-code">Step 10. Reformat source code</h3>
-<p>Format your code through <code>black</code> and <code>isort</code>.</p>
-<pre><code class="language-sh">inv style.reformat
+<p>Format your code through <code>black</code> and <code>ruff</code>.</p>
+<pre><code class="language-sh">inv style.format
 </code></pre>
 <h3 id="step-11-run-style-check">Step 11. Run style check</h3>
 <p>Make sure your coding style passes all enforced linters.</p>
 <pre><code class="language-sh">inv style
-</code></pre>
-<p>[Optional] Check your coding style through <code>pylint</code>. Note that you do not have to fix all the issues warned by <code>pylint</code>.</p>
-<pre><code class="language-sh">inv style.pylint
 </code></pre>
 <h3 id="step-12-run-security-check">Step 12. Run security check</h3>
 <p>Ensure the packages installed are secure, and no server vulnerability is introduced</p>
