@@ -61,10 +61,10 @@ inv test.cov
 
 ### Step 10. Reformat source code
 
-Format your code through `black` and `isort`.
+Format your code through `black` and `ruff`.
 
 ```sh
-inv style.reformat
+inv style.format
 ```
 
 ### Step 11. Run style check
@@ -72,12 +72,6 @@ Make sure your coding style passes all enforced linters.
 
 ```sh
 inv style
-```
-
-[Optional] Check your coding style through `pylint`. Note that you do not have to fix all the issues warned by `pylint`.
-
-```sh
-inv style.pylint
 ```
 
 ### Step 12. Run security check
