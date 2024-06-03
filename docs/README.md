@@ -104,4 +104,4 @@ See [Contributing](contributing.md)
 ## Authors
 Wei Lee <weilee.rx@gmail.com>
 
-Created from [Lee-W/cookiecutter-python-template](https://github.com/Lee-W/cookiecutter-python-template/tree/1.10.0) version 1.10.0
+Created from [Lee-W/cookiecutter-python-template](https://github.com/Lee-W/cookiecutter-python-template/tree/1.10.1) version 1.10.1
