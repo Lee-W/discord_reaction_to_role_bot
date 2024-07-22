@@ -1,6 +1,6 @@
 {
   "template": "https://github.com/Lee-W/cookiecutter-python-template",
-  "commit": "f166ea059e69874be0f32e682d0066dce333c434",
+  "commit": "940d5a970f18408ff1d097e70a8400096195fbe7",
   "checkout": null,
   "context": {
     "cookiecutter": {
