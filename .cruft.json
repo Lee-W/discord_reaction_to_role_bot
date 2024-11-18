@@ -1,6 +1,6 @@
 {
   "template": "https://github.com/Lee-W/cookiecutter-python-template",
-  "commit": "77b360a3d34372282b9a26065951d211ea76cd3d",
+  "commit": "4fcb3a3e89c274b1bae6e46de7650a7379904e97",
   "checkout": null,
   "context": {
     "cookiecutter": {
@@ -19,7 +19,7 @@
       "build_docker_image": "n",
       "open_source_license": "MIT license",
       "auto_detect_update_from_cruft_template": "y",
-      "_template_version": "1.10.1",
+      "_template_version": "1.11.0",
       "_template": "https://github.com/Lee-W/cookiecutter-python-template"
     }
   },
