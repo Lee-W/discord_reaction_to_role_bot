@@ -12,7 +12,7 @@ pytest-cov = ">=2.8.1"
 pytest-mock = ">=3.0.0"
 coverage = {extras = ["toml"], version = ">=7.4.1"}
 # style
-ruff = ">=0.0.262"
+ruff = ">=0.15.14"
 black = ">=22.10.0"
 mypy = ">=1.4"
 # security
