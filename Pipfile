@@ -14,7 +14,7 @@ coverage = {extras = ["toml"], version = ">=7.4.1"}
 # style
 ruff = ">=0.0.262"
 black = ">=22.10.0"
-mypy = ">=1.4"
+mypy = ">=2.1.0"
 # security
 bandit = ">=1.6.2"
 pip-audit = ">=2.4.5"
