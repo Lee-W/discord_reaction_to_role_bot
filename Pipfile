@@ -7,7 +7,7 @@ verify_ssl = true
 # task management
 invoke = ">=2.2.0"
 # test
-pytest = ">=8.0.0"
+pytest = ">=9.0.3"
 pytest-cov = ">=2.8.1"
 pytest-mock = ">=3.0.0"
 coverage = {extras = ["toml"], version = ">=7.4.1"}
